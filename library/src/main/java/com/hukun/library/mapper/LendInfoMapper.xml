@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hukun.library.mapper.LendInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hukun.library.model.LendInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="b_id" property="bId" jdbcType="INTEGER" />
+    <result column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="lend_date" property="lendDate" jdbcType="DATE" />
+    <result column="back_date" property="backDate" jdbcType="DATE" />
+    <result column="isback" property="isback" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, b_id, r_id, lend_date, back_date, isback
+  </sql>
+  <update id="updateRecordIsBack" parameterType="integer">
+    update lendinfo set isback=1 where id=#{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lendinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lendinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hukun.library.model.LendInfo" >
+    insert into lendinfo (id, b_id, r_id, 
+      lend_date, back_date, isback)
+    values (#{id,jdbcType=INTEGER}, #{bId,jdbcType=INTEGER}, #{rId,jdbcType=INTEGER}, 
+      #{lendDate,jdbcType=DATE}, #{backDate,jdbcType=DATE}, #{isback,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hukun.library.model.LendInfo" >
+    insert into lendinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="lendDate != null" >
+        lend_date,
+      </if>
+      <if test="backDate != null" >
+        back_date,
+      </if>
+      <if test="isback != null" >
+        isback,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bId != null" >
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="lendDate != null" >
+        #{lendDate,jdbcType=DATE},
+      </if>
+      <if test="backDate != null" >
+        #{backDate,jdbcType=DATE},
+      </if>
+      <if test="isback != null" >
+        #{isback,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hukun.library.model.LendInfo" >
+    update lendinfo
+    <set >
+      <if test="bId != null" >
+        b_id = #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="rId != null" >
+        r_id = #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="lendDate != null" >
+        lend_date = #{lendDate,jdbcType=DATE},
+      </if>
+      <if test="backDate != null" >
+        back_date = #{backDate,jdbcType=DATE},
+      </if>
+      <if test="isback != null" >
+        isback = #{isback,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hukun.library.model.LendInfo" >
+    update lendinfo
+    set b_id = #{bId,jdbcType=INTEGER},
+      r_id = #{rId,jdbcType=INTEGER},
+      lend_date = #{lendDate,jdbcType=DATE},
+      back_date = #{backDate,jdbcType=DATE},
+      isback = #{isback,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
